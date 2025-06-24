@@ -1,0 +1,9 @@
+{
+  "name": "cloud-run-vpc-terraform-sample",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}

@@ -1,0 +1,35 @@
+services:
+  backend:
+    image: cloud-run-vpc-terraform-sample-backend:1
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+
+    ports:
+      - 3000:3000
+    
+    networks:
+      - cloud-run-vpc-terraform-sample-network
+    
+    environment:
+      - BACKEND_PORT=3000
+
+  frontend:
+    image: cloud-run-vpc-terraform-sample-frontend:1
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+
+    ports:
+      - 3001:3001
+
+    networks:
+      - cloud-run-vpc-terraform-sample-network
+    
+    environment:
+      - BACKEND_URL=http://backend:3000
+      - PORT=3001
+      - HOST=0.0.0.0
+
+networks:
+  cloud-run-vpc-terraform-sample-network:

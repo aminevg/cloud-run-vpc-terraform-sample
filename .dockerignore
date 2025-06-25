@@ -1,0 +1,43 @@
+# Dependencies
+node_modules
+
+# Build outputs
+out
+dist
+build
+*.tsbuildinfo
+
+# Version control
+.git
+**/.gitignore
+.github
+.gitlab-ci.yml
+
+# IDE and editor files
+.idea
+.vscode
+*.swp
+*.swo
+**/.DS_Store
+
+# Environment files
+**/.env
+**/.env.*
+
+# Test coverage
+coverage*
+
+# Logs
+logs
+*.log
+
+# Documentation
+**/README.md
+
+# Docker
+Dockerfile*
+docker-compose.yml*
+.dockerignore
+
+# Terraform
+infra

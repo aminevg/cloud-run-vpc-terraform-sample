@@ -1,0 +1,27 @@
+# https://bun.sh/guides/ecosystem/docker
+
+# use the official Bun image
+# see all versions at https://hub.docker.com/r/oven/bun/tags
+FROM oven/bun:1 AS base
+WORKDIR /usr/src/app
+
+# install dependencies into temp directory
+# this will cache them and speed up future builds
+FROM base AS install
+# install with --production (exclude devDependencies)
+RUN mkdir -p /temp/prod
+COPY package.json bun.lock /temp/prod/
+COPY packages/backend/package.json /temp/prod/packages/backend/
+COPY packages/frontend/package.json /temp/prod/packages/frontend/
+RUN cd /temp/prod && bun install --filter "backend" --frozen-lockfile --production
+
+# copy production dependencies and source code into final image
+FROM base AS release
+COPY --from=install /temp/prod/node_modules node_modules
+COPY packages/backend packages/backend
+COPY package.json package.json
+
+# run the app
+USER bun
+WORKDIR /usr/src/app/packages/backend
+ENTRYPOINT [ "bun", "run", "prod" ]

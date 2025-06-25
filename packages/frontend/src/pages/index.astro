@@ -1,5 +1,5 @@
 ---
-const backendUrl = import.meta.env.BACKEND_URL ?? "http://localhost:3000";
+const backendUrl = process.env.BACKEND_URL ?? "http://localhost:3000";
 
 const response = await fetch(`${backendUrl}/random-uuid`);
 const data = await response.text();

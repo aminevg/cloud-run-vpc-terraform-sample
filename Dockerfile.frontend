@@ -31,4 +31,8 @@ COPY --from=prerelease /usr/src/app/packages/frontend/package.json packages/fron
 # run the app
 USER bun
 WORKDIR /usr/src/app/packages/frontend
-ENTRYPOINT [ "bun", "run", "prod" ]
+
+ENV HOST=0.0.0.0
+ENV PORT=4321
+EXPOSE 4321
+ENTRYPOINT [ "bun", "dist/server/entry.mjs" ]
